@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, Dimensions, Alert } from 'react-native';
 import CameraClass from './camera.js';
 import Constants from 'expo-constants';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import * as firebase from 'firebase';
+import '@firebase/firestore';
 
 export default class Detection extends React.Component {
   constructor(props){
@@ -39,7 +41,37 @@ export default class Detection extends React.Component {
   }
   photoSelected = () =>{
     //BACKEND QUERY
-    console.log('Photo Selected')
+    console.log('Photo Selected');
+    const firedb = firebase.firestore()
+      firedb.collection("models").doc("uid2").set({
+        photo:'images/test2',
+        type: 'type2',
+      })
+      .then(function() {
+          console.log("Document successfully written!");
+      })
+      .catch(function(error) {
+          console.error("Error writing document: ", error);
+      });
+    // console.log(this.state.imageDisplay);
+    // console.log(firedb);
+    // console.log(storageRef);
+    // storageRef.put(`${this.state.imageDisplay}`).then(function(snapshot) {
+    //   console.log('Uploaded a blob or file!');
+    // }); 
+    this.uploadImage(this.state.imageDisplay)
+    .then(()=>{
+      console.log('Successfully Uploaded');
+    }) 
+    .catch((error)=>{
+      console.log(error);
+    });
+  }
+  uploadImage = async(uri) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();  
+    var ref = firebase.storage().ref().child("images/test");
+    return ref.put(blob);
   }
   render(){
     const screenWidth = Math.round(Dimensions.get('window').width);
