@@ -6,13 +6,17 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import '@firebase/firestore';
+import uuid from 'uuid-random';
 
 export default class Detection extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       openCamera: false,
-      imageDisplay: null,
+      imageUri: null,
+      imageH: 0,
+      imageW:0,
+      userid: uuid(),
     }
   }
   async componentDidMount(){
@@ -29,39 +33,40 @@ export default class Detection extends React.Component {
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         quality:1,
       });
-      if(!result.cancelled) this.setState({ imageDisplay: result.uri });
+      if(!result.cancelled) this.setState({ imageUri: result.uri, imageH: result.height, imageW: result.width });
       // console.log(result);
     }catch(E){
       console.log(E);
     }
   }
   getImagefromCamera = (img) => {
-    this.setState({ imageDisplay: img.uri, openCamera: false });
+    this.setState({ imageUri: img.uri, openCamera: false, imageH: img.height, imageW: img.width });
     // console.log(img);
   }
+  callDisplayResult = () => {
+    this.props.onSelectImage(this.state.userid);
+  }
   photoSelected = () =>{
+    let that = this;
     //BACKEND QUERY
-    console.log('Photo Selected');
-    const firedb = firebase.firestore()
-      firedb.collection("models").doc("uid2").set({
-        photo:'images/test2',
+    // console.log('Photo Selected');
+    that.uploadImage(that.state.imageUri)
+    .then(()=>{
+      // console.log('Photo successfully uploaded');
+      const firedb = firebase.firestore()
+      firedb.collection("models").doc(`${that.state.userid}`).set({
+        photo:`gs://detection-app-9aa0a.appspot.com/images/${that.state.userid}`,
+        height: `${that.state.imageH}`,
+        width: `${that.state.imageW}`,
         type: 'type2',
       })
       .then(function() {
-          console.log("Document successfully written!");
+          // console.log("Document successfully written!");
+        that.callDisplayResult();
       })
       .catch(function(error) {
           console.error("Error writing document: ", error);
       });
-    // console.log(this.state.imageDisplay);
-    // console.log(firedb);
-    // console.log(storageRef);
-    // storageRef.put(`${this.state.imageDisplay}`).then(function(snapshot) {
-    //   console.log('Uploaded a blob or file!');
-    // }); 
-    this.uploadImage(this.state.imageDisplay)
-    .then(()=>{
-      console.log('Successfully Uploaded');
     }) 
     .catch((error)=>{
       console.log(error);
@@ -70,27 +75,29 @@ export default class Detection extends React.Component {
   uploadImage = async(uri) => {
     const response = await fetch(uri);
     const blob = await response.blob();  
-    var ref = firebase.storage().ref().child("images/test");
+    var ref = firebase.storage().ref().child(`images/${this.state.userid}`);
     return ref.put(blob);
   }
   render(){
     const screenWidth = Math.round(Dimensions.get('window').width);
+    const screenHeight = Math.round(Dimensions.get('window').height);
+    // console.log(screenWidth)
     const welcomeContent = <View style={ styles.container } >
                             <Button title='Upload' onPress={this.handleSelectPhoto}/>
                             <Button title='Camera' onPress={()=>this.setState({ openCamera: true })}/>
                           </View>
     const imageContainer =<View style={{ flex:1, backgroundColor:'black', }}>
                             <View style={{ flex:1, justifyContent:'center', alignItems:'center' }}>
-                              <Image source={{ uri: this.state.imageDisplay }} 
-                                style={{ flex:1, width:screenWidth, marginTop:Constants.statusBarHeight }}/>
+                              <Image source={{ uri: this.state.imageUri  }} 
+                                style={{ flex:1, marginTop:Constants.statusBarHeight, width:screenWidth, height:screenHeight, resizeMode:'contain' }}/>
                             </View>
                             <View style={{ paddingVertical:30, flexDirection:"row", justifyContent:"space-around"}}>
                               <Button title="It's great" onPress={this.photoSelected} />
-                              <Button title="I'll do better" onPress={()=>this.setState({ imageDisplay: null, openCamera: false })}/>
+                              <Button title="I'll do better" onPress={()=>this.setState({ imageUri: null, openCamera: false })}/>
                             </View>
                           </View>
                           
-    if(this.state.imageDisplay != null) return(imageContainer)
+    if(this.state.imageUri != null) return(imageContainer)
     else if(!this.state.openCamera) return(welcomeContent)
     else return <CameraClass onSnap={this.getImagefromCamera} />
   }

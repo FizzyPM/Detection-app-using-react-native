@@ -10,7 +10,8 @@ export default class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-
+      results: false,
+      userid: null,
     }
     if(!firebase.apps.length){
       firebase.initializeApp({
@@ -25,13 +26,15 @@ export default class App extends React.Component {
       });
     }
   }
+  displayResults = (uid) => {
+    this.setState({ results: true, userid: uid });
+  }
   render(){
-    return(
       // <View style={ styles.container }>
       //   <Text> Main Screen </Text>
       // </View>
-        <Detection/>
-    )
+      if(this.state.results) return <View style={ styles.container }><Text>Results here</Text></View>
+      else return <Detection onSelectImage={this.displayResults}/>
   }
 }
 const styles = StyleSheet.create({
