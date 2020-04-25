@@ -58,7 +58,7 @@ export default class Detection extends React.Component {
         photo:`gs://detection-app-9aa0a.appspot.com/images/${that.state.userid}`,
         height: `${that.state.imageH}`,
         width: `${that.state.imageW}`,
-        type: 'type2',
+        result: '',
       })
       .then(function() {
           // console.log("Document successfully written!");
@@ -75,7 +75,7 @@ export default class Detection extends React.Component {
   uploadImage = async(uri) => {
     const response = await fetch(uri);
     const blob = await response.blob();  
-    var ref = firebase.storage().ref().child(`images/${this.state.userid}`);
+    var ref = firebase.storage().ref().child(`images/${this.state.userid}.jpg`);
     return ref.put(blob);
   }
   render(){
