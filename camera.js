@@ -11,7 +11,7 @@ export default class CameraClass extends React.Component {
     this.state = {
       hasPermission: null,
       type: Camera.Constants.Type.back,
-      image: null,
+      // image: null,
     }
   }
   async componentDidMount(){
