@@ -5,15 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 // import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 // import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-// import {decode, encode} from 'base-64'
-// import App2 from './App2.js'
-// import Detection from './det2.js' 
-import Try from './try.js'
+import Detection from './detection.js'
 import * as firebase from 'firebase';
-// import uuid from 'uuid-random';
-
-// const userid = uuid();
-// console.log(userid);
 
 function HomeScreen() {
   return (
@@ -25,7 +18,7 @@ function HomeScreen() {
 
 function DetectionScreen() {
   return (
-		<Try />
+		<Detection />
   );
 }
 

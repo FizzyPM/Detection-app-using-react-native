@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Detection from './detection.js'
+import Detection from './detection2.js'
 import * as firebase from 'firebase';
 import {decode, encode} from 'base-64'
 

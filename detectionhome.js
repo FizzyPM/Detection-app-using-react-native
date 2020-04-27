@@ -2,11 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, Image, Dimensions, Alert } from 'react-native';
 // import CameraClass from './camera.js';
 import Constants from 'expo-constants';
-import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
-import * as firebase from 'firebase';
-import '@firebase/firestore';
-import uuid from 'uuid-random';
+
 
 export default class DetectionHome extends React.Component {
 	constructor(props){

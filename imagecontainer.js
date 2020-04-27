@@ -32,10 +32,11 @@ export default class ImageSelected extends React.Component {
         height: `${that.state.imageH}`,
 				width: `${that.state.imageW}`,
 				type: 'D-Detection',
-        result: '',
+        result: 'Loading...',
       })
       .then(function() {
-				console.log("Document successfully written!");
+				that.props.navigation.navigate('ShowResults', { uri: that.state.imageUri, height: that.state.imageH, width: that.state.imageW, uid: that.state.userid })
+				// console.log("Document successfully written!");
       })
       .catch(function(error) {
 				console.error("Error writing document: ", error);
