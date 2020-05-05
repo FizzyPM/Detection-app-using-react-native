@@ -7,22 +7,26 @@ import CameraClass from './camera.js'
 import ImageSelected from './imagecontainer.js'
 import Results from './results.js'
 
+const TypeContext = React.createContext({});
 export default class Detection extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
+			type: this.props.type,
 		}
 	}
 	render(){
 	const Stack = createStackNavigator();
 		return(
 			// <NavigationContainer>
+		<TypeContext.Provider value={this.state} > 
       <Stack.Navigator initialRouteName="DetectionHome"  screenOptions={{ headerShown: false }}>
         <Stack.Screen name="DetectionHome" component={DetHomeScreen} />
 				<Stack.Screen name="Camera" component={CameraScreen} />
-        <Stack.Screen name="ImageClicked" component={ImageScreen} />
+        <Stack.Screen name="ImageClicked" component={ImageScreen} /> 
 				<Stack.Screen name="ShowResults" component={ResultScreen} />
       </Stack.Navigator>
+			</TypeContext.Provider>
     	// </NavigationContainer>
 		)
 	}
@@ -57,7 +61,7 @@ class DetHomeScreen extends React.Component {
       console.log(E);
     }
   }
-	render(){
+	render(){	
 		return(
 			<DetectionHome onSelect={this.handleSelectPhoto} {...this.props}/>
 		)
@@ -65,14 +69,17 @@ class DetHomeScreen extends React.Component {
 }
 
 class ImageScreen extends React.Component {
+	// static contextType = TypeContext;
 	render(){
+		// console.log(this.context)
 		// console.log(this.props)
 		return(
-			<ImageSelected {...this.props} />
+			<ImageSelected {...this.props} info={this.context}/>
 			// <View></View>
 		)
 	}
 }
+ImageScreen.contextType = TypeContext;
 
 class ResultScreen extends React.Component {
 	render(){

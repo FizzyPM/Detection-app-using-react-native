@@ -12,6 +12,7 @@ export default class ImageSelected extends React.Component {
 			imageUri: this.props.route.params.imageUri,
 			imageH: this.props.route.params.imageH,
 			imageW: this.props.route.params.imageW,
+			type: this.props.info.type,
 			userid: uuid(),
 		}
 	}
@@ -31,7 +32,7 @@ export default class ImageSelected extends React.Component {
         photo:`gs://detection-app-9aa0a.appspot.com/images/${that.state.userid}`,
         height: `${that.state.imageH}`,
 				width: `${that.state.imageW}`,
-				type: 'D-Detection',
+				type: this.state.type,
         result: 'Loading...',
       })
       .then(function() {
@@ -47,6 +48,7 @@ export default class ImageSelected extends React.Component {
     });
   }
 	render(){
+		// console.log(this.state.type)
 		const screenWidth = Math.round(Dimensions.get('window').width);
     const screenHeight = Math.round(Dimensions.get('window').height);
 		return(
