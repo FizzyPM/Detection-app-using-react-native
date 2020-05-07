@@ -4,6 +4,7 @@ import Constants from 'expo-constants';
 import { Camera } from 'expo-camera';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import Svg, {Circle} from 'react-native-svg';
+import * as ImageManipulator from "expo-image-manipulator";
 
 export default class CameraClass extends React.Component {
   constructor(props){
@@ -20,10 +21,14 @@ export default class CameraClass extends React.Component {
   }
   handleTakePhoto = async () => {
     if(this.camera){
-      let photo = await this.camera.takePictureAsync({skipProcessing:true, quality:1, });
+      let photo = await this.camera.takePictureAsync({skipProcessing:true, quality:1, ratio:'4:3' });
+      let reducedphoto = await ImageManipulator.manipulateAsync(
+        photo.uri, [],
+        { compress: 0.5 }
+      );
       // this.setState({ image: photo.uri });
       // console.log(photo)
-      this.props.onSnap(photo, this.props.route.params.leafType)
+      this.props.onSnap(reducedphoto, this.props.route.params.leafType)
       // const ratios = await this.camera.getSupportedRatiosAsync();
       // console.log(ratios);
     }

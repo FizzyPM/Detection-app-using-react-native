@@ -6,6 +6,8 @@ import DetectionHome from './detectionhome.js'
 import CameraClass from './camera.js'
 import ImageSelected from './imagecontainer.js'
 import Results from './results.js'
+import * as ImageManipulator from "expo-image-manipulator";
+
 
 const TypeContext = React.createContext({});
 export default class Detection extends React.Component {
@@ -51,11 +53,15 @@ class DetHomeScreen extends React.Component {
     try{
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
-        quality:0.4,
-      });
+        quality:1,
+			});
       if(!result.cancelled){
+				let reducedphoto = await ImageManipulator.manipulateAsync(
+					result.uri, [],
+					{ compress: 0.5 }
+				);
 				// this.setState({ imageUri: result.uri, imageH: result.height, imageW: result.width });
-				this.props.navigation.navigate('ImageClicked', { imageUri: result.uri, imageH: result.height, imageW: result.width, leafType: type })
+				this.props.navigation.navigate('ImageClicked', { imageUri: reducedphoto.uri, imageH: reducedphoto.height, imageW: reducedphoto.width, leafType: type })
 			}
 			// console.log(result);
     }catch(E){
