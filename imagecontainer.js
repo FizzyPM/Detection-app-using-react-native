@@ -34,7 +34,7 @@ export default class ImageSelected extends React.Component {
         height: `${that.state.imageH}`,
 				width: `${that.state.imageW}`,
 				type: `${that.state.type}` + '__' + `${that.state.leafType}`,
-        result: 'Loading...',
+        result: 'null',
       })
       .then(function() {
 				that.props.navigation.navigate('ShowResults', { uri: that.state.imageUri, height: that.state.imageH, width: that.state.imageW, uid: that.state.userid })

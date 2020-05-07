@@ -26,7 +26,7 @@ export default class DetectionHome extends React.Component {
 		if(this.state.type === 'disease') list = 
 		<Picker
 			selectedValue={this.state.leafType}
-			style={{ height: 50, width: 100 }}
+			style={{ height: 50, width: 140 }}
 			onValueChange={(itemValue, itemIndex) => this.setState({ leafType: itemValue })}>
 			<Picker.Item label="Unknown" value="unknown" />
 			<Picker.Item label="Apple" value="apple" />
