@@ -13,6 +13,7 @@ export default class ImageSelected extends React.Component {
 			imageH: this.props.route.params.imageH,
 			imageW: this.props.route.params.imageW,
 			type: this.props.info.type,
+			leafType: this.props.route.params.leafType,
 			userid: uuid(),
 		}
 	}
@@ -32,7 +33,7 @@ export default class ImageSelected extends React.Component {
         photo:`gs://detection-app-9aa0a.appspot.com/images/${that.state.userid}`,
         height: `${that.state.imageH}`,
 				width: `${that.state.imageW}`,
-				type: this.state.type,
+				type: `${that.state.type}` + '__' + `${that.state.leafType}`,
         result: 'Loading...',
       })
       .then(function() {

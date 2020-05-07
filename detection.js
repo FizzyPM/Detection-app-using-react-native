@@ -26,35 +26,36 @@ export default class Detection extends React.Component {
         <Stack.Screen name="ImageClicked" component={ImageScreen} /> 
 				<Stack.Screen name="ShowResults" component={ResultScreen} />
       </Stack.Navigator>
-			</TypeContext.Provider>
+		</TypeContext.Provider>
     	// </NavigationContainer>
 		)
 	}
 }
 
 class CameraScreen extends React.Component {
-	getImagefromCamera = (img) => {
+	getImagefromCamera = (img,type) => {
 	// this.setState({ imageUri: img.uri, openCamera: false, imageH: img.height, imageW: img.width });
-	this.props.navigation.navigate('ImageClicked', { imageUri: img.uri, imageH: img.height, imageW: img.width })
+	this.props.navigation.navigate('ImageClicked', { imageUri: img.uri, imageH: img.height, imageW: img.width,leafType: type })
 	// console.log(img);
 	}
 	render(){
 		return(
-			<CameraClass onSnap={this.getImagefromCamera} />
+			<CameraClass onSnap={this.getImagefromCamera} {...this.props} />
 		)
 	}
 }
 
 class DetHomeScreen extends React.Component {
-	handleSelectPhoto = async () => {
+	handleSelectPhoto = async (type) => {
+	// console.log(type)
     try{
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
-        quality:1,
+        quality:0.4,
       });
       if(!result.cancelled){
 				// this.setState({ imageUri: result.uri, imageH: result.height, imageW: result.width });
-				this.props.navigation.navigate('ImageClicked', { imageUri: result.uri, imageH: result.height, imageW: result.width })
+				this.props.navigation.navigate('ImageClicked', { imageUri: result.uri, imageH: result.height, imageW: result.width, leafType: type })
 			}
 			// console.log(result);
     }catch(E){
@@ -63,10 +64,11 @@ class DetHomeScreen extends React.Component {
   }
 	render(){	
 		return(
-			<DetectionHome onSelect={this.handleSelectPhoto} {...this.props}/>
+			<DetectionHome onSelect={this.handleSelectPhoto} {...this.props} info={this.context} />
 		)
 	}
 }
+DetHomeScreen.contextType = TypeContext;
 
 class ImageScreen extends React.Component {
 	// static contextType = TypeContext;

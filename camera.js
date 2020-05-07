@@ -23,7 +23,7 @@ export default class CameraClass extends React.Component {
       let photo = await this.camera.takePictureAsync({skipProcessing:true, quality:1, });
       // this.setState({ image: photo.uri });
       // console.log(photo)
-      this.props.onSnap(photo)
+      this.props.onSnap(photo, this.props.route.params.leafType)
       // const ratios = await this.camera.getSupportedRatiosAsync();
       // console.log(ratios);
     }
