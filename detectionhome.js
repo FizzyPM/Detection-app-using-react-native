@@ -24,26 +24,37 @@ export default class DetectionHome extends React.Component {
 	render(){
 		let list;
 		if(this.state.type === 'disease') list = 
-		<Picker
-			selectedValue={this.state.leafType}
-			style={{ height: 50, width: 140 }}
-			onValueChange={(itemValue, itemIndex) => this.setState({ leafType: itemValue })}>
-			<Picker.Item label="Unknown" value="unknown" />
-			<Picker.Item label="Apple" value="apple" />
-			<Picker.Item label="Banana" value="banana" />
-			<Picker.Item label="Corn" value="corn" />
-			<Picker.Item label="Grapes" value="grapes" />
-			<Picker.Item label="Potato" value="potato" />
-			<Picker.Item label="Rice" value="rice" />
-			<Picker.Item label="Tomato" value="tomato" />
-		</Picker>
-	
+		<View style={ styles.container }>
+			<Text style={{ fontSize:16 }}>Select the type of plant if known:</Text>
+			<Picker
+				selectedValue={this.state.leafType}
+				style={{ height: 50, width: 100 }}
+				onValueChange={(itemValue, itemIndex) => this.setState({ leafType: itemValue })}>
+				<Picker.Item label="Unknown" value="unknown" />
+				<Picker.Item label="Apple" value="apple" />
+				<Picker.Item label="Banana" value="banana" />
+				<Picker.Item label="Blueberry" value="blueberry" />
+				<Picker.Item label="Capsicum " value="bell-pepper" />
+				<Picker.Item label="Cherry" value="cherry" />
+				<Picker.Item label="Corn" value="corn" />
+				<Picker.Item label="Grapes" value="grapes" />
+				<Picker.Item label="Orange" value="orange" />
+				<Picker.Item label="Peach" value="peach" />
+				<Picker.Item label="Potato" value="potato" />
+				<Picker.Item label="Raspberry" value="raspberry" />
+				<Picker.Item label="Rice" value="rice" />
+				<Picker.Item label="Soyabean" value="soyabean" />
+				<Picker.Item label="Squash" value="squash" />
+				<Picker.Item label="Strawberry" value="strawberry" />
+				<Picker.Item label="Tomato" value="tomato" />
+			</Picker>
+		</View>
 		return(
 			<View style={{ flex:1 }}>
-				<View style={styles.container}>
+				{/* <View style={styles.container}>
 					<Text>{this.state.type}</Text>
+				</View> */}
 					{list}
-				</View>
 				<View style={ styles.buttons } >
 					<Button title='Upload' onPress={() => this.props.onSelect(this.state.leafType)} />
 					<Button title='Camera' onPress={() => this.props.navigation.navigate('Camera', { leafType: this.state.leafType })} />

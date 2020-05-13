@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View,ImageBackground } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -10,10 +10,13 @@ import * as firebase from 'firebase';
 import uuid from 'uuid-random';
 
 function HomeScreen() {
+
+  // const image = { uri: "https://reactjs.org/logo-og.png" };
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
+    // <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    //   <Text>Home!</Text>
+    // </View>
+    <ImageBackground source={require('./assets/HS1.jpg')} style={{width: '100%', height: '100%'}}></ImageBackground>
   );
 }
 
