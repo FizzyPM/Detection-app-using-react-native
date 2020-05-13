@@ -24,7 +24,7 @@ export default class CameraClass extends React.Component {
       let photo = await this.camera.takePictureAsync({skipProcessing:true, quality:1, ratio:'4:3' });
       let reducedphoto = await ImageManipulator.manipulateAsync(
         photo.uri, [],
-        { compress: 0.5 }
+        { compress: 0.3 }
       );
       // this.setState({ image: photo.uri });
       // console.log(photo)
@@ -49,7 +49,7 @@ export default class CameraClass extends React.Component {
             autoFocus={Camera.Constants.AutoFocus.on}>
 
             <View style={{ flex:1, justifyContent:"flex-end", alignItems:"center", position:'relative' }}>
-              <TouchableOpacity style={{ backgroundColor:'transparent',paddingBottom:55 }} onPress={()=>this.handleTakePhoto()} >
+              <TouchableOpacity style={{ backgroundColor:'transparent',paddingBottom:50 }} onPress={()=>this.handleTakePhoto()} >
                 <MaterialCommunityIcons style={{ fontSize:50, color:'#fff' }} name="camera"/>
               </TouchableOpacity>
               <Svg height='25%' width='25%' viewBox='0 0 100 100' style={{ position:'absolute' }}>

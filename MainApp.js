@@ -90,7 +90,7 @@ export default class MainApp extends React.Component {
           	tabBarIcon: ({ color, size }) => (
             	<MaterialCommunityIcons name="flower" color={color} size={size} />
 						), }} />
-          <Tab.Screen name="Rotton or Not" component={RottonScreen} options={{ 
+          <Tab.Screen name="Rotten or Not" component={RottonScreen} options={{ 
           	tabBarIcon: ({ color, size }) => (
             	<MaterialCommunityIcons name="food-apple" color={color} size={size} />
 						), }} />

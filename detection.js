@@ -37,7 +37,7 @@ export default class Detection extends React.Component {
 class CameraScreen extends React.Component {
 	getImagefromCamera = (img,type) => {
 	// this.setState({ imageUri: img.uri, openCamera: false, imageH: img.height, imageW: img.width });
-	this.props.navigation.navigate('ImageClicked', { imageUri: img.uri, imageH: img.height, imageW: img.width,leafType: type })
+	this.props.navigation.navigate('ImageClicked', { imageUri: img.uri, imageH: img.height, imageW: img.width, leafType: type })
 	// console.log(img);
 	}
 	render(){
