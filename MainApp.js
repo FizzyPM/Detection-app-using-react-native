@@ -1,21 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View,ImageBackground } from 'react-native';
+import { Text, View,ImageBackground, Linking } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-// import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-// import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Detection from './detection.js'
 import * as firebase from 'firebase';
-import uuid from 'uuid-random';
 
 function HomeScreen() {
-
-  // const image = { uri: "https://reactjs.org/logo-og.png" };
   return (
-    // <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    //   <Text>Home!</Text>
-    // </View>
+    // <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text>Home!</Text></View>
     <ImageBackground source={require('./assets/HS1.jpg')} style={{width: '100%', height: '100%'}}></ImageBackground>
   );
 }
@@ -41,7 +34,20 @@ function RottonScreen() {
 function HelpScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>How can I help?</Text>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        {/* <Text>How can I help?</Text> */}
+        <Text>HELPLINES:</Text>
+        <Text></Text>
+        <Text>PM-Kisan Helpline No. 155261 / 1800115526 (Toll Free),</Text>
+        <Text> 0120-6025109 </Text>
+      </View>
+      <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>IMPORTANT LINKS:</Text>
+        <Text></Text>
+        <Text style={{color: 'blue'}} onPress={() => Linking.openURL('https://pmkisan.gov.in/')}>https://pmkisan.gov.in/</Text>
+        <Text style={{color: 'blue'}} onPress={() => Linking.openURL('https://dackkms.gov.in/')}>https://dackkms.gov.in/</Text>
+        <Text style={{color: 'blue'}} onPress={() => Linking.openURL('http://agriculture.gov.in/')}>http://agriculture.gov.in/</Text>
+      </View>
     </View>
   );
 }

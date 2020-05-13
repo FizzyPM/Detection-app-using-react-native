@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image, Dimensions, Alert } from 'react-native';
+import { View, Button, Image, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
 import * as firebase from 'firebase';
 import '@firebase/firestore';

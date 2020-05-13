@@ -56,7 +56,6 @@ export default class CameraClass extends React.Component {
                 <Circle cx="50" cy="50" r="45" stroke='white' strokeWidth="3" fill='transparent' />
               </Svg>
             </View>
-
           </Camera>
       </View>
     );
