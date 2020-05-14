@@ -23,15 +23,6 @@ export default class Results extends React.Component {
 				// console.log('here')
 				let ans = doc.data().result
 				// console.log(ans)
-				if(((doc.data().type).split('__'))[0] === 'disease'){
-					ans = (ans.split("___"))[1];
-					ans = ans.replace(' ','-');
-					ans = ans.replace(/_/g,' ');
-				}
-				else if(((doc.data().type).split('__'))[0] === 'rotton'){
-					if(ans.charAt(0) === 'r') ans='rotten';
-					else ans='fresh';
-				}
 				this.setState( prevState => ({ result: ans, wait4Result: !prevState.wait4Result }) )
 
 				listener();
@@ -50,6 +41,8 @@ export default class Results extends React.Component {
 		else div = <Text style={{ fontSize:15, fontWeight:'bold' }} > {this.state.result} </Text>
 		return(
 			<View style={ styles.container } >
+				<Text> ID: {this.state.uid} </Text>
+				<Image source={{ uri: this.state.uri }} style={{ width: 100, height: 100, resizeMode:'center' }}/>
 				{div}
 				<Button title='Go Back' onPress={() => this.props.navigation.navigate('DetectionHome')} />
 			</View>
